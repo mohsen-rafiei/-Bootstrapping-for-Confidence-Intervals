@@ -1,37 +1,65 @@
+# Bootstrapped Confidence Intervals for UX Metrics
 
-# Bootstrapped Confidence Interval for SUS Scores
+This project demonstrates how to compute a 95% confidence interval using bootstrapping in R. While the example uses System Usability Scale (SUS) scores, the method can be applied to any numeric UX metric including task completion times, NPS scores, trust ratings, or average satisfaction levels. This technique is especially useful in small-sample UX studies or when your data deviate from normality.
 
-This project demonstrates how to calculate a 95% confidence interval for System Usability Scale (SUS) scores using bootstrapping in R. It's designed for UX researchers working with small sample sizes or non-normal data.
+## Project Files
 
-## Files
+- `bootstrap_metric.R`: The main R script that implements bootstrapping and plotting.
+- `README.md`: This documentation file.
 
-- `bootstrap_sus.R`: The main R script that performs the analysis.
-- `README.md`: Instructions and context.
+## Method Overview
+
+Bootstrapping is a resampling-based method for estimating the sampling distribution of a statistic, such as the mean or median. It involves repeatedly sampling with replacement from your observed data and computing the desired statistic for each resample. This results in a distribution of bootstrap estimates, which can then be used to calculate confidence intervals empirically, without relying on normality assumptions.
+
+This method is well-suited to UX research because user data often violate classical statistical assumptions. Bootstrapping provides a robust, flexible alternative that works well with small samples, ordinal or skewed data, and unknown distributions.
 
 ## Instructions
 
-1. Open R or RStudio.
-2. Load the script `bootstrap_sus.R`.
-3. Run the script.
+1. Ensure R (or RStudio) is installed on your system.
+2. Open the `bootstrap_metric.R` file.
+3. Replace the example vector with your own numeric data.
+4. Adjust the statistic if desired (e.g., mean, median).
+5. Run the script.
 
-It will:
-- Resample your SUS scores 10,000 times using bootstrapping
-- Calculate the average SUS score
-- Generate a 95% confidence interval around that mean
-- Plot the distribution of bootstrapped means with CI lines
+The script performs the following:
+- Accepts a numeric vector of scores.
+- Executes 10,000 bootstrap resamples (with replacement).
+- Calculates the statistic (by default, the mean) for each resample.
+- Computes the 95% confidence interval using the 2.5th and 97.5th percentiles.
+- Generates a histogram showing the bootstrapped distribution and CI bounds.
 
-## Why Use This?
+## Customization
 
-Bootstrapping is ideal for UX research scenarios with small sample sizes or when assumptions of normality don't hold. It gives you robust estimates of variability without requiring large datasets.
+To adapt the script for your needs:
+- Replace the `metric_scores` vector with your own data.
+- Modify the `statistic_function` to use `median`, `sd`, or any custom function.
+- Adjust the number of bootstrap iterations or confidence level as needed.
+
+## Statistical Details
+
+- **Statistic of Interest**: Default is the mean, but can be any function of the data.
+- **Bootstrap Iterations**: 10,000 by default.
+- **CI Method**: Percentile-based confidence interval.
+- **Assumptions**: Only that the data are independently and identically distributed.
+- **Interpretation**: The 95% confidence interval provides a plausible range for the true population parameter, based on the observed sample.
 
 ## Output
 
-The script will print:
-- Mean SUS score
-- 95% confidence interval
+- Printed output includes:
+  - Observed estimate of the metric
+  - Lower and upper bounds of the 95% confidence interval
+- A histogram of the bootstrapped estimates with CI boundaries is generated for visual interpretation.
 
-It also generates a histogram showing the bootstrapped mean distribution with CI boundaries.
+## Use Cases in UX
+
+This method is useful for estimating confidence intervals for:
+- SUS or other usability scores
+- Average satisfaction or trust ratings
+- Task success rates or completion times
+- Likert-based scale summaries
+- Behavioral metrics collected during usability testing
 
 ## License
+Developed by Mohsen Rafiei, Ph.D.
 
-MIT License
+This project is released under the MIT License. Feel free to modify and reuse the code with appropriate attribution.
